@@ -1,7 +1,5 @@
 function mazeGeneration(surrounding,rs,re,cs,ce,matrix,row,col,orientation){
     if(rs>re || cs>ce)return;
-    
-setTimeout(()=>{},100);
 
     if(!surrounding){
         for(let i=0; i<row; i++){
