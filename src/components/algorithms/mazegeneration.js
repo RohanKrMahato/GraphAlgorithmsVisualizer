@@ -1,6 +1,11 @@
 function mazeGeneration(surrounding,rs,re,cs,ce,matrix,row,col,orientation){
     if(rs>re || cs>ce)return;
-
+    for(let i=0; i<row; i++){
+        for(let j=0; j<col; j++){
+            matrix[i][j].classList.remove('path');
+            matrix[i][j].classList.remove('visited');
+        }
+    }
     if(!surrounding){
         for(let i=0; i<row; i++){
             if(!matrix[i][0].classList.contains('target') && !matrix[i][0].classList.contains('source'))matrix[i][0].classList.add('wall');

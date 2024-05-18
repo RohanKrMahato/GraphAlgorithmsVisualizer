@@ -1,3 +1,53 @@
+@keyframes radiate {
+  0% {
+    background-color:rgba(255, 0, 0, 0.44);
+  }
+  20% {
+      transform: scale(.3);
+      background-color: rgba(0, 0, 66, 0.75);
+      border-radius: 100%;
+  }
+
+  50% {
+      background-color: rgba(17, 104, 217, 0.75);
+  }
+
+  75% {
+      transform: scale(1);
+      background-color: rgba(0, 217, 159, 0.75);
+  }
+
+  100% {
+      transform: scale(1);
+      background-color: var(--visited-clr);
+  }
+}
+
+@keyframes pathradiate {
+  0% {
+    background-color:black;
+  }
+  20% {
+      transform: scale(.3);
+      background-color: rgba(44, 0, 70, 0.991);
+      border-radius: 100%;
+  }
+
+  50% {
+      background-color: rgba(30, 17, 217, 0.75);
+  }
+
+  75% {
+      transform: scale(1);
+      background-color: rgba(0, 217, 206, 0.75);
+  }
+
+  100% {
+      transform: scale(1);
+      background-color: yellow;
+  }
+}
+
 .template{
   display:grid;
   height:100vh;
@@ -9,14 +59,15 @@
   background-color: var(--clr-navy);
 }
 .path{
-  background-color: var(--path-clr);
-}
+  animation:pathradiate 1s ease-out forwards;
+  }
 .unvisited{
   border:2px solid red;
   transition: 3s ease-in;
 }
 .visited{
-  background-color: var(--visited-clr);
+  /* background-color: var(--visited-clr); */
+  animation:radiate 1s ease-out forwards;
 }
 .source{
   background:url('C:\Users\Rohan Kumar Mahato\Desktop\project1\src\assets\icon\source.svg');

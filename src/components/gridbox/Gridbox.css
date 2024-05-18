@@ -10,5 +10,5 @@
 .col{
     aspect-ratio: 1;
     width:var(--cell-width);
-    border:1px solid red;
+    border:1px solid rgba(128, 128, 128, 0.127);
 }

@@ -3,6 +3,7 @@ import Navbar from './components/navbar/Navbar'
 import Guidebar from './components/guidebar/Guidebar'
 import Gridbox from './components/gridbox/Gridbox'
 import generateMaze from './components/algorithms/mazegeneration';
+import renderBFS from './components/algorithms/BFS';
 
 function renderBoard(cellwidth=22) {
   const board = document.getElementById('board');
@@ -114,10 +115,12 @@ function set(classname, x=-1, y=-1){
    let li=a.parentElement;
    if(Text==='Clear Path' || Text==='Clear Board' || Text==='Generate Maze')li.addEventListener('click',()=>{
     if(Text==='Clear Path'){
-      let remWal=document.querySelectorAll('.wall');
-      remWal.forEach(x=>{
-        x.classList.remove('wall');
-      })
+      for(let i=0; i<row; i++){
+        for(let j=0; j<col; j++){
+            Matrix[i][j].classList.remove('path');
+            Matrix[i][j].classList.remove('visited');
+        }
+    }
     }
     if(Text==='Clear Board'){
       renderBoard();
@@ -135,6 +138,10 @@ function set(classname, x=-1, y=-1){
    });
    
   })
+
+  const visualizeBtn=document.querySelector('.btn');
+  
+  visualizeBtn.addEventListener('click',()=>{renderBFS(row,col,Matrix,sourcecoordinate,targetcoordinate);})
 };
 
 
