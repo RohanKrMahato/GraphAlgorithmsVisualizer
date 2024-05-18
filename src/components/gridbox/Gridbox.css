@@ -1,0 +1,14 @@
+.row{
+    display: flex;
+}
+.grid-box{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+}
+.col{
+    aspect-ratio: 1;
+    width:var(--cell-width);
+    border:1px solid red;
+}

@@ -1,38 +1,30 @@
-.App {
-  text-align: center;
+.template{
+  display:grid;
+  height:100vh;
+  grid-template-rows: auto 1fr;
+  grid-gap:10px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.wall{
+  background-color: var(--clr-navy);
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.path{
+  background-color: var(--path-clr);
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.unvisited{
+  border:2px solid red;
+  transition: 3s ease-in;
 }
-
-.App-link {
-  color: #61dafb;
+.visited{
+  background-color: var(--visited-clr);
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.source{
+  background:url('C:\Users\Rohan Kumar Mahato\Desktop\project1\src\assets\icon\source.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.target{
+  background:url('C:\Users\Rohan Kumar Mahato\Desktop\project1\src\assets\icon\target.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
 }

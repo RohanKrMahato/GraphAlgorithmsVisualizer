@@ -1,0 +1,90 @@
+nav{
+    padding:4px;
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    background-color: var(--clr-navy);
+    white-space:nowrap;
+}
+.logo{
+    padding:0 16px;
+    color:white;
+    font-size:20px;
+    font-weight:600;
+}
+.btn{
+    background-color: var(--primary-clr);
+    color:white;
+    padding: 8px 16px;
+    border-radius:5px;
+    cursor:pointer;
+    justify-self:start;
+}
+.nav-menu{
+    display:flex;
+    align-items:center;
+}
+.drop-box{
+    position:relative;
+}
+.drop-box.active .drop-menu{
+    display:block;
+}
+.drop-box .drop-menu{
+    position:absolute;
+    background-color: var(--clr-navy);
+    min-width:120px;
+    padding:4px;
+    border-radius:8px;
+    right:0;
+    top:calc(100% + 20px);
+    display:none;
+}
+.nav-menu>li>a{
+    color:white;
+    padding:8px 16px;
+    display:flex;
+    font-weight: 600;
+    align-items:center;
+    gap:4px;
+}
+.nav-menu>li>a:hover{
+    color:var(--secondary-clr);
+}
+.nav-menu>li.active>a{
+    background-color:var(--primary-clr);
+}
+.drop-menu>li>a:hover{
+    background-color: var(--primary-clr);
+}
+.drop-menu>li>a{
+color:white;
+padding:8px;
+display:block;
+border-radius:4px;
+}
+/* doubt */
+.drop-menu>li.active>a{
+    background-color:var(--primary-clr);
+}
+
+@media screen and (max-width: 1000px) {
+    nav{
+        display:grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-row-gap:4px;
+    }
+    .nav-menu{
+        grid-column:1/-1;
+        width:max-content;
+    }
+}
+
+
+
+.caret{
+    display:block;
+    aspect-ratio:1;
+    width:14px;
+    background:url("C:\Users\Rohan Kumar Mahato\Desktop\project1\src\assets\icon\caret-down.svg")
+}
