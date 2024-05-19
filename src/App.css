@@ -44,7 +44,7 @@
 
   100% {
       transform: scale(1);
-      background-color: rgb(0, 162, 255);
+      background-color: rgb(255, 200, 0);
   }
 }
 
@@ -83,20 +83,29 @@
   background:url('C:\Users\Rohan Kumar Mahato\Desktop\project1\src\assets\icon\wall.png');
   background-repeat: no-repeat;
   background-size: cover;
+  cursor: pointer;
   /* background-color: brown; */
 }
 .path{
   animation:pathradiate 1s ease-out forwards;
+  background-color: rgb(255, 200, 0);
   }
+.col.renderedpath{
+  background-color: #ffc800;
+}
 .unvisited{
   transition: 3s ease-in;
 }
 .visited{
   /* background-color: var(--visited-clr); */
   animation:radiate 1s ease-out forwards;
+  background-color: rgba(0, 217, 159, 0.75);
 }
+.col.renderedvisited{
+  background-color:#86ffa8}
 .source{
   position: relative;
+  cursor: pointer;
 }
 
 .col.target,.col.source{
@@ -122,6 +131,7 @@
 
 .target{
   position: relative;
+  cursor: pointer
 }
 
 .target::before {
