@@ -115,7 +115,7 @@ document.addEventListener('click', (e) => {
         <>
             <nav>
                 <div className='logobtnalign'>
-                <a href='./index.html' className='logo'>Pathfinding Visualizer</a>
+                <a href='./index.html' className='logo'><div>Graph Algorithms</div> <div>Visualizer</div></a>
                 <div className='btn' id='visualize'>Visualize</div>
                 </div>
                 
