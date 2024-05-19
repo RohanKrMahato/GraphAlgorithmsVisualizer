@@ -1,5 +1,5 @@
-var visitedCell;
-var pathtoanimate;
+var visitedCell=[];
+var pathtoanimate=[];
 
 function BFS(row, col, matrix, source_cordinate, target_cordinate) {
     const queue = [];
@@ -40,7 +40,8 @@ function BFS(row, col, matrix, source_cordinate, target_cordinate) {
 
     function isValid(nx, ny) {
         return (nx >= 0 && nx < row && ny >= 0 && ny < col);
-    }
+    };
+
 }
 
 function getPath(childparent, target, matrix) {
@@ -50,29 +51,26 @@ function getPath(childparent, target, matrix) {
     getPath(childparent, parent, matrix);
 }
 
-function animate(elements, className, callback) {
-    let delay = 10;
+function animate(elements, className,delay) {
     for (let i = 0; i < elements.length; i++) {
         setTimeout(() => {
+            elements[i].classList.remove('visited');
             elements[i].classList.add(className);
             if (i === elements.length - 1 && className === 'visited') {
-                callback(); // Call the callback when animation of visited cells is complete
+                // animate(pathtoanimate,'path');
+                delay=25;
+                for(let j=pathtoanimate.length-1; j>=0; j--){
+                    setTimeout(()=>{
+                        pathtoanimate[j].classList.remove('visited');
+                        pathtoanimate[j].classList.add('path');
+                    },(pathtoanimate.length-1-j)*delay);
+                }
             }
         }, delay * i);
     }
-}
+};
 
-function animatePath(elements) {
-    let delay = 10;
-    for (let i = elements.length - 1; i >= 0; i--) {
-        setTimeout(() => {
-            elements[i].classList.remove('visited');
-            elements[i].classList.add('path');
-        }, delay * (elements.length - 1 - i));
-    }
-}
-
-function renderBFS(row, col, matrix, sc, tc) {
+function renderBFS(row, col, matrix, sc, tc, delay) {
     visitedCell = [];
     for (let i = 0; i < row; i++) {
         for (let j = 0; j < col; j++) {
@@ -81,9 +79,7 @@ function renderBFS(row, col, matrix, sc, tc) {
         }
     }
     BFS(row, col, matrix, sc, tc);
-    animate(visitedCell, 'visited', () => {
-        animatePath(pathtoanimate);
-    });
+    animate(visitedCell, 'visited',delay);
 }
 
 export default renderBFS;

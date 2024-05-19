@@ -10,5 +10,6 @@
 .col{
     aspect-ratio: 1;
     width:var(--cell-width);
-    border:1px solid rgba(128, 128, 128, 0.127);
+    border:3px solid black;
+    background-color: lightcyan;
 }

@@ -1,5 +1,8 @@
 function mazeGeneration(surrounding,rs,re,cs,ce,matrix,row,col,orientation){
     if(rs>re || cs>ce)return;
+setTimeout(()=>{
+
+
     for(let i=0; i<row; i++){
         for(let j=0; j<col; j++){
             matrix[i][j].classList.remove('path');
@@ -73,5 +76,7 @@ function mazeGeneration(surrounding,rs,re,cs,ce,matrix,row,col,orientation){
 // right division
         mazeGeneration(surrounding,rs,re,colselect+2,ce,matrix,row,col,(re-rs<ce-colselect-2)?'vertical':'horizontal');
     }
+
+},1)
 };
 export default mazeGeneration;

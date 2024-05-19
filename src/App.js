@@ -1,19 +1,28 @@
 import './App.css';
+import { useEffect } from 'react';
 import Navbar from './components/navbar/Navbar'
 import Guidebar from './components/guidebar/Guidebar'
 import Gridbox from './components/gridbox/Gridbox'
 import generateMaze from './components/algorithms/mazegeneration';
 import renderBFS from './components/algorithms/BFS';
 
+var row;
+var col;
+var cells;
+var Matrix;
+var sourcecoordinate;
+var targetcoordinate;
+var delay=15;
+
 function renderBoard(cellwidth=22) {
   const board = document.getElementById('board');
   board.innerHTML="";
   const root=document.documentElement;// note this step, this is for changing the css
   root.style.setProperty('--cell-width',`${cellwidth}px`)
-  let row = Math.floor(board.clientHeight / cellwidth);
-  let col = Math.floor(board.clientWidth / cellwidth);
-  let cells = [];
-  let Matrix=[];
+   row = Math.floor(board.clientHeight / cellwidth);
+   col = Math.floor(board.clientWidth / cellwidth);
+   cells = [];
+   Matrix=[];
   for (let i = 0; i < row; i++) {
       const rowElement = document.createElement('div');
       rowElement.classList.add('row');
@@ -46,8 +55,8 @@ function set(classname, x=-1, y=-1){
   return {x,y};
 }
   
-  let sourcecoordinate=set('source');
-  let targetcoordinate=set('target');
+   sourcecoordinate=set('source');
+   targetcoordinate=set('target');
 
   
   let Dragpoint=null;
@@ -106,7 +115,10 @@ function set(classname, x=-1, y=-1){
     cell.addEventListener('pointerup',pointerup);
 
   });
+};
 
+function restofthing(){
+  console.log(Matrix);
   const clearPathBoardGeneratemaze=document.querySelectorAll('.nav-menu>li>a');
   
   clearPathBoardGeneratemaze.forEach(a=>{
@@ -139,13 +151,36 @@ function set(classname, x=-1, y=-1){
    
   })
 
+  const speedcontrol=document.querySelectorAll('.drop-menu>li>a');
+
+  speedcontrol.forEach(x=>{
+    let li=x.parentElement;
+    let text=x.innerText;
+    if(text==='Slow'){li.addEventListener('click',()=>{
+      delay=15;
+      console.log(delay);
+    });}
+    if(text==='Fast'){li.addEventListener('click',()=>{
+      delay=2;
+      console.log(delay);
+    });}
+    if(text==='Normal'){li.addEventListener('click',()=>{
+      delay=5;
+      console.log(delay);
+    });}
+  });
+
   const visualizeBtn=document.querySelector('.btn');
   
-  visualizeBtn.addEventListener('click',()=>{renderBFS(row,col,Matrix,sourcecoordinate,targetcoordinate);})
-};
-
+  visualizeBtn.addEventListener('click',()=>{renderBFS(row,col,Matrix,sourcecoordinate,targetcoordinate,delay);});
+}
 
 function App() {
+
+  useEffect(()=>{
+    restofthing();
+  },[]);
+
   return (
     <div className="template">
       <div>

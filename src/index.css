@@ -23,7 +23,7 @@ code {
     monospace;
 }
 
-:root {
+/* :root {
   --clr-navy: #34495e;
   --primary-clr: #6563ff;
   --secondary-clr: #c4c3fc;
@@ -34,4 +34,16 @@ code {
   --wall-clr: #0c3547;
   --path-clr: #fffe6a;
   --visited-clr: #40cee3;
+} */
+:root {
+  --clr-navy: #ff3131ef;
+  --primary-clr: #fc9898;
+  --secondary-clr: #fdddca;
+  --light-line: #e4e2ed;
+  --cell-width: 22px;
+  --light-text: #686673;
+  --light-dot: #adaac0;
+  --wall-clr: #0c3547;
+  --path-clr: #fffe6a;
+  --visited-clr: #86ffa8;
 }

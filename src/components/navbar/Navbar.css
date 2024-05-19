@@ -4,7 +4,6 @@ nav{
     align-items:center;
     justify-content: space-between;
     background-color: var(--clr-navy);
-    white-space:nowrap;
 }
 .logo{
     padding:0 16px;
@@ -39,6 +38,7 @@ nav{
     right:0;
     top:calc(100% + 20px);
     display:none;
+    z-index: 10;
 }
 .nav-menu>li>a{
     color:white;
@@ -68,7 +68,7 @@ border-radius:4px;
     background-color:var(--primary-clr);
 }
 
-@media screen and (max-width: 1000px) {
+/* @media screen and (max-width: 1000px) {
     nav{
         display:grid;
         grid-template-columns: 1fr 1fr 1fr;
@@ -78,7 +78,7 @@ border-radius:4px;
         grid-column:1/-1;
         width:max-content;
     }
-}
+} */
 
 
 

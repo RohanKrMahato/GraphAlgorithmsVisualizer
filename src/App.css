@@ -48,6 +48,29 @@
   }
 }
 
+@keyframes radiatesourcetarget {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.8);
+  }
+}
+
+@keyframes blink{
+  0%{
+    background-color: rgba(246, 166, 7, 0.347);
+  }
+  50%{
+    background-color: rgba(33, 203, 33, 0.406);
+  }
+  100%{
+    background-color: rgba(250, 35, 157, 0.333);
+  }
+}
 .template{
   display:grid;
   height:100vh;
@@ -56,13 +79,16 @@
 }
 
 .wall{
-  background-color: var(--clr-navy);
+  /* background-color: var(--clr-navy); */
+  background:url('C:\Users\Rohan Kumar Mahato\Desktop\project1\src\assets\icon\wall.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-color: brown; */
 }
 .path{
   animation:pathradiate 1s ease-out forwards;
   }
 .unvisited{
-  border:2px solid red;
   transition: 3s ease-in;
 }
 .visited{
@@ -70,12 +96,42 @@
   animation:radiate 1s ease-out forwards;
 }
 .source{
-  background:url('C:\Users\Rohan Kumar Mahato\Desktop\project1\src\assets\icon\source.svg');
-  background-repeat: no-repeat;
-  background-size: contain;
+  position: relative;
 }
-.target{
-  background:url('C:\Users\Rohan Kumar Mahato\Desktop\project1\src\assets\icon\target.svg');
-  background-repeat: no-repeat;
+
+.col.target,.col.source{
+  animation: blink 1s ease infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.source::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('C:/Users/Rohan Kumar Mahato/Desktop/project1/src/assets/icon/source.png') no-repeat center center;
   background-size: contain;
+  animation: radiatesourcetarget 1s ease infinite;
+}
+
+
+
+.target{
+  position: relative;
+}
+
+.target::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:url('C:\Users\Rohan Kumar Mahato\Desktop\project1\src\assets\icon\target.png') no-repeat center center;
+  background-size: contain;
+  animation: radiatesourcetarget 1s ease infinite;
 }

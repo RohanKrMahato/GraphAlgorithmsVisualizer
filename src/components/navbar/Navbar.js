@@ -116,6 +116,7 @@ document.addEventListener('click', (e) => {
             <nav>
                 <a href='./index.html' className='logo'>Pathfinding Visualizer</a>
                 <div className='btn' id='visualize'>Visualize</div>
+                <div>
                 <ul className='nav-menu'>
                     <li><a href='#'>Clear Path</a></li>
                     <li><a href='#'>Clear Board</a></li>
@@ -150,6 +151,8 @@ document.addEventListener('click', (e) => {
                         </ul>
                     </li>
                 </ul>
+                </div>
+                
             </nav>
         </>
     );
