@@ -114,8 +114,11 @@ document.addEventListener('click', (e) => {
     return (
         <>
             <nav>
+                <div className='logobtnalign'>
                 <a href='./index.html' className='logo'>Pathfinding Visualizer</a>
                 <div className='btn' id='visualize'>Visualize</div>
+                </div>
+                
                 <div>
                 <ul className='nav-menu'>
                     <li><a href='#'>Clear Path</a></li>
