@@ -44,6 +44,7 @@ code {
   --light-text: #686673;
   --light-dot: #adaac0;
   --wall-clr: #0c3547;
-  --path-clr: #fffe6a;
+  /* --path-clr: #fffe6a; */
+  --path-clr: rgb(0, 162, 255);
   --visited-clr: #86ffa8;
 }
