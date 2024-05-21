@@ -9,8 +9,8 @@ import renderDFS from '../algorithms/DFS';
 function Navbar(props) {
     useEffect(() => {
 
-        let curpixel=26;
-        let curspeed=2;
+        let curpixel=40;
+        let curspeed=1;
         let curAlgorithm=0;
 
         const visualizebtn=document.querySelector('.btn');
@@ -89,8 +89,9 @@ function Navbar(props) {
                         }
                     }
 
-                if(navOptionText==='Speed')curspeed=integerconverter(li.innerText);
-                if(navOptionText==='Algorithms'){curAlgorithm=integerconverter(li.innerText);
+                if(navOptionText==='Speed' && !props.renderState.isrendering)curspeed=integerconverter(li.innerText);
+
+                if(navOptionText==='Algorithms' && !props.renderState.isrendering){curAlgorithm=integerconverter(li.innerText);
                     visualizebtn.innerText=li.innerText;
 
 
@@ -159,13 +160,13 @@ function addactiveclasstoActive(){
     });
 }
         function integerconverter(liinnertext){
-            if(liinnertext==='14px')return 14;
-            if(liinnertext==='16px')return 16;
-            if(liinnertext==='18px')return 18;
-            if(liinnertext==='20px')return 20;
-            if(liinnertext==='22px')return 22;
-            if(liinnertext==='24px')return 24;
-            if(liinnertext==='26px')return 26;
+            // if(liinnertext==='14px')return 14;
+            // if(liinnertext==='16px')return 16;
+            // if(liinnertext==='18px')return 18;
+            if(liinnertext==='50px')return 50;
+            if(liinnertext==='40px')return 40;
+            if(liinnertext==='30px')return 30;
+            if(liinnertext==='25px')return 25;
             if(liinnertext==='Fast')return 3;
             if(liinnertext==='Normal')return 2;
             if(liinnertext==='Slow')return 1;
@@ -208,10 +209,10 @@ document.addEventListener('click', (e) => {
                             {/* <li><a href='#'>14px</a></li>
                             <li><a href='#'>16px</a></li>
                             <li><a href='#'>18px</a></li> */}
-                            <li><a href='#'>20px</a></li>
-                            <li><a href='#'>22px</a></li>
-                            <li><a href='#'>24px</a></li>
-                            <li><a href='#'>26px</a></li>
+                            <li><a href='#'>25px</a></li>
+                            <li><a href='#'>30px</a></li>
+                            <li><a href='#'>40px</a></li>
+                            <li><a href='#'>50px</a></li>
                         </ul>
                     </li>
                     <li className='drop-box'>

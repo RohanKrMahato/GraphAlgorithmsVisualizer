@@ -192,11 +192,11 @@ function animate(elements, className, delay,renderState,matrix,row,col) {
     }
   else{
 
-    let targetpresent=false;
+    // let targetpresent=false;
 
     for (let i = 0; i < elements.length; i++) {
 
-      if(elements[i].classList.contains('target'))targetpresent=true;
+      // if(elements[i].classList.contains('target'))targetpresent=true;
 
         setTimeout(() => {
 
@@ -204,7 +204,7 @@ function animate(elements, className, delay,renderState,matrix,row,col) {
 
           elements[i].classList.add(className);
 
-          if (i === elements.length - 1 && targetpresent) {
+          if (i === elements.length - 1) {
 
             // animate(pathtoanimate,'path');
             delay = 25;

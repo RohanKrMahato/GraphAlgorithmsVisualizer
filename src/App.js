@@ -31,7 +31,7 @@ var renderState = {
   isrendered: false, 
   isrendering:false
  };
-function renderBoard(cellwidth = 26) {
+function renderBoard(cellwidth = 40) {
   renderState.isrendered=false;
   const board = document.getElementById('board');
   board.innerHTML = "";
@@ -324,19 +324,19 @@ renderState.isrendered=false;
   speedcontrol.forEach(x => {
     let li = x.parentElement;
     let text = x.innerText;
-    if (text === 'Slow') {
+    if (text === 'Slow' && !renderState.isrendering) {
       li.addEventListener('click', () => {
         delay = 15;
         console.log(delay);
       });
     }
-    if (text === 'Fast') {
+    if (text === 'Fast' && !renderState.isrendering) {
       li.addEventListener('click', () => {
         delay = 2;
         console.log(delay);
       });
     }
-    if (text === 'Normal') {
+    if (text === 'Normal' && !renderState.isrendering) {
       li.addEventListener('click', () => {
         delay = 7;
         console.log(delay);

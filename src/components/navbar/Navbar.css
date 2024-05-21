@@ -48,6 +48,7 @@ nav{
     font-size:large;
     font-weight:600;
     transition: 0.5s;
+    user-select: none;
 }
 .btn:hover{
     background-color: #f98383;
@@ -58,6 +59,7 @@ nav{
     display:flex;
     align-items:center;
     margin-top: 10px;
+    user-select: none;
 }
 .drop-box{
     position:relative;
