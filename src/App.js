@@ -5,17 +5,21 @@ import Guidebar from './components/guidebar/Guidebar';
 import Gridbox from './components/gridbox/Gridbox';
 import generateMaze from './components/algorithms/mazegeneration';
 import renderBFS from './components/algorithms/BFS';
-
+import renderDijkstra from './components/algorithms/DijkstraAlgorithm';
+import renderConvergentGreedy from './components/algorithms/ConvergentGreedy';
+import renderAStar from './components/algorithms/Astar';
+import renderDFS from './components/algorithms/DFS';
 var row;
 var col;
 var cells;
 var Matrix;
 var sourcecoordinate;
 var targetcoordinate;
-var delay = 15;
-var renderState = { isrendered: false, visualizebtnactive:true }; // Wrap isrendered in an object
-var isbuttonactive=true;
-
+var delay = 7;
+var renderState = { 
+  isrendered: false, 
+  isrendering:false
+ };
 function renderBoard(cellwidth = 22) {
   renderState.isrendered=false;
   const board = document.getElementById('board');
@@ -139,7 +143,7 @@ function renderBoard(cellwidth = 22) {
         targetcoordinate={...prevtarget};
       }
       if (renderState.isrendered === true && (e.target.classList.contains('source') || e.target.classList.contains('target'))) {
-        renderBFS({ row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState });
+        renderDFS({ row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState });
       }
       prevSource={...sourcecoordinate};
       prevtarget={...targetcoordinate};
@@ -165,37 +169,44 @@ function restofthing() {
     let Text = a.innerText;
     let li = a.parentElement;
     if (Text === 'Clear Path' || Text === 'Clear Board' || Text === 'Generate Maze') li.addEventListener('click', () => {
+
+
+
       if (Text === 'Clear Path') {
-        for (let i = 0; i < row; i++) {
-          for (let j = 0; j < col; j++) {
-            Matrix[i][j].classList.remove('path');
-            Matrix[i][j].classList.remove('visited');
-            Matrix[i][j].classList.remove('renderedpath');
-            Matrix[i][j].classList.remove('renderedvisited');
-          }
-        }
-        renderState.isrendered=false;
+
+if(!renderState.isrendering){
+
+renderState.isrendering=true;
+  for (let i = 0; i < row; i++) {
+    for (let j = 0; j < col; j++) {
+      Matrix[i][j].classList.remove('path');
+      Matrix[i][j].classList.remove('visited');
+      Matrix[i][j].classList.remove('renderedpath');
+      Matrix[i][j].classList.remove('renderedvisited');
+    }
+  }
+renderState.isrendering=false;
+renderState.isrendered=false;
+
+}
+
+
       }
       if (Text === 'Clear Board') {
 
-        if(isbuttonactive===true){
-
-          renderBoard();      
-          isbuttonactive=false;
-          setTimeout(()=>{
-            isbuttonactive=true;
-          },1000);
-      };
-      renderState.isrendered=false;
+      if(!renderState.isrendering){
+        renderState.isrendering=true;
+        renderBoard();      
+        renderState.isrendering=false;
+        renderState.isrendered=false;
+      }
 
       }
 
-      if (Text === 'Generate Maze') {
+      if (Text === 'Generate Maze' && !renderState.isrendering) {
 
+        // renderState.isrendering=true;
 
-        if(isbuttonactive===true){
-
-          
         for (let i = 0; i < row; i++) {
           for (let j = 0; j < col; j++) {
             Matrix[i][j].classList.remove('path');
@@ -210,18 +221,13 @@ function restofthing() {
           x.classList.remove('wall');
         })
         
+
         generateMaze(false, 0, row - 1, 0, col - 1, Matrix, row, col, (row < col) ? 'vertical' : 'horizontal');
+  
         renderState.isrendered=false;
 
         console.log("appjs ka function");
           
-            isbuttonactive=false;
-            setTimeout(()=>{
-              isbuttonactive=true;
-            },1000);
-          };
-
-
       }
     });
 
@@ -246,7 +252,7 @@ function restofthing() {
     }
     if (text === 'Normal') {
       li.addEventListener('click', () => {
-        delay = 5;
+        delay = 7;
         console.log(delay);
       });
     }
@@ -256,21 +262,24 @@ function restofthing() {
 
 visualizeBtn.addEventListener('click', () => {
 
-// if(isbuttonactive===true){
+// if(clearboardDelaytoggle_isactive===true){
+if(!renderState.isrendering){
 
-if(renderState.isrendered===false && renderState.visualizebtnactive===true){
-
+  renderState.isrendered=false;
+  renderState.isrendering=true;
   console.log(renderState.isrendered);
-  renderState.visualizebtnactive=false;
-  renderBFS({ row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState });
+  renderDFS({ 
+    row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState
+   });
 
   console.log(renderState.isrendered);
 
 }
 
-//     isbuttonactive=false;
+
+//     clearboardDelaytoggle_isactive=false;
 //     setTimeout(()=>{
-//       isbuttonactive=true;
+//       clearboardDelaytoggle_isactive=true;
 //     },1000);
 // };
     
@@ -286,7 +295,7 @@ function App() {
   return (
     <div className="template">
       <div>
-        <Navbar renderBoard={renderBoard} />
+        <Navbar renderBoard={renderBoard} renderState={renderState} />
         <Guidebar />
       </div>
       <Gridbox renderBoard={renderBoard} />

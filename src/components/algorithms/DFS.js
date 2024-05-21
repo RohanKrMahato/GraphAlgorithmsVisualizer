@@ -1,54 +1,42 @@
-var visitedCell = [];
-var pathtoanimate = [];
+var visitedCell;
+var pathtoanimate;
+var visited;
 
-function BFS(row, col, matrix, source_cordinate, target_cordinate) {
-  const queue = [];
-  const visited = new Set();
-  const childparent = new Map();
-  pathtoanimate = [];
-  visitedCell = [];
-  queue.push(source_cordinate);
-  visited.add(`${source_cordinate.x}-${source_cordinate.y}`);
+function DFS(row, col, matrix, current, target_cordinate) {
 
-  while (queue.length > 0) {
-    const current = queue.shift();
+    visited.add(`${current.x}-${current.y}`);
     visitedCell.push(matrix[current.x][current.y]);
-    // finding the target
-    if (current.x === target_cordinate.x && current.y === target_cordinate.y) {
-      getPath(childparent, target_cordinate, matrix);
-      return;
-    }
+
+    if(current.x===target_cordinate.x && current.y===target_cordinate.y)return true;
 
     const neighbours = [
-      { x: current.x + 1, y: current.y },
-      { x: current.x - 1, y: current.y },
-      { x: current.x, y: current.y + 1 },
-      { x: current.x, y: current.y - 1 }
-    ];
+        { x: current.x - 1, y: current.y },
+        { x: current.x, y: current.y + 1 },
+        { x: current.x + 1, y: current.y },
+        { x: current.x, y: current.y - 1 }
+      ];
+  
+      for (const neighbour of neighbours) {
 
-    for (const neighbour of neighbours) {
-      const key = `${neighbour.x}-${neighbour.y}`;
-      const nx = neighbour.x;
-      const ny = neighbour.y;
-      if (isValid(nx, ny) && !visited.has(key) && !matrix[nx][ny].classList.contains('wall')) {
-        queue.push(neighbour);
-        visited.add(key);
-        childparent.set(key, current);
+        const key = `${neighbour.x}-${neighbour.y}`;
+
+        const nx = neighbour.x;
+        const ny = neighbour.y;
+
+        if (isValid(nx, ny,row,col) && !visited.has(key) && !matrix[nx][ny].classList.contains('wall')) {
+        if(DFS(row, col, matrix, neighbour, target_cordinate))
+            {pathtoanimate.push(matrix[neighbour.x][neighbour.y]);
+                return true;
+            }
+        }
       }
-    }
-  }
 
-  function isValid(nx, ny) {
+      return false;
+}
+
+function isValid(nx, ny,row,col) {
     return (nx >= 0 && nx < row && ny >= 0 && ny < col);
   }
-}
-
-function getPath(childparent, target, matrix) {
-  if (!target) return;
-  pathtoanimate.push(matrix[target.x][target.y]);
-  const parent = childparent.get(`${target.x}-${target.y}`);
-  getPath(childparent, parent, matrix);
-}
 
 
 function animate(elements, className, delay,renderState) {
@@ -111,8 +99,11 @@ function animate(elements, className, delay,renderState) {
   }
 }
 
-function renderBFS({ row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState }) {
-  visitedCell = [];
+function renderDFS({ row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState }) {
+     visitedCell = [];
+    pathtoanimate = [];
+    visited=new Set();
+
   for (let i = 0; i < row; i++) {
     for (let j = 0; j < col; j++) {
       Matrix[i][j].classList.remove('path');
@@ -121,9 +112,9 @@ function renderBFS({ row, col, Matrix, sourcecoordinate, targetcoordinate, delay
       Matrix[i][j].classList.remove('renderedvisited');
     }
   }
-  BFS(row, col, Matrix, sourcecoordinate, targetcoordinate);
+  DFS(row, col, Matrix, sourcecoordinate, targetcoordinate);
   animate(visitedCell, 'visited', delay,renderState);
 
 }
 
-export default renderBFS;
+export default renderDFS;

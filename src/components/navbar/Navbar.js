@@ -5,14 +5,16 @@ function App(props) {
     useEffect(() => {
 
         let curpixel=22;
-        let curspeed=1;
+        let curspeed=2;
         let curAlgorithm=0;
+
         const visualizebtn=document.querySelector('.btn');
         const navOptions = document.querySelectorAll('.nav-menu > li > a');
         // navOptions is a object contains lots of <a>
         navOptions.forEach(navOption => {
             // adding event listener to <a>
-            navOption.addEventListener('click', () => {const li=navOption.parentElement;
+            navOption.addEventListener('click', () => {
+                const li=navOption.parentElement;
                 if(li.classList.contains('active')){
                     li.classList.remove('active');
                 }
@@ -40,10 +42,11 @@ function App(props) {
 
         const dropOptions=document.querySelectorAll('.drop-menu > li > a');
         dropOptions.forEach(dropOption=>{
+
             const li=dropOption.parentElement;
  
             dropOption.addEventListener('click',()=>{
-                dropOptionstoggle();
+
 
                 li.classList.add('active');
 
@@ -53,7 +56,11 @@ function App(props) {
 
                 if(navOptionText==='Pixel')
                     // render the board here
-                    {curpixel=integerconverter(li.innerText); props.renderBoard(curpixel);}
+                    {
+                        if(!props.renderState.isrendering){
+                            curpixel=integerconverter(li.innerText); props.renderBoard(curpixel);
+                        }
+                    }
 
                 if(navOptionText==='Speed')curspeed=integerconverter(li.innerText);
                 if(navOptionText==='Algorithms'){curAlgorithm=integerconverter(li.innerText);
@@ -61,10 +68,13 @@ function App(props) {
                 }
 
                 li.parentElement.parentElement.classList.remove('active');
-
+                dropOptionstoggle();
                 addactiveclasstoActive();
             });
         });
+
+
+addactiveclasstoActive();
 
 function addactiveclasstoActive(){
     dropOptions.forEach(dropOption=>{
@@ -72,6 +82,9 @@ function addactiveclasstoActive(){
         const val=integerconverter(li.innerText);
         const dropOption_pEpEpE=dropOption.parentElement.parentElement.parentElement;
         const navOptionText=dropOption_pEpEpE.firstChild.innerText;
+
+
+
         if(navOptionText==='Pixel' && val===curpixel){li.classList.add('active');}
         if(navOptionText==='Speed' && val===curspeed){
             li.classList.add('active');

@@ -12,4 +12,10 @@
     width:var(--cell-width);
     border:3px solid black;
     background-color: lightcyan;
+    font-size: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    overflow: hidden;
 }

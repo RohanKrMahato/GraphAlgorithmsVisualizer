@@ -2,7 +2,6 @@ function mazeGeneration(surrounding,rs,re,cs,ce,matrix,row,col,orientation){
     if(rs>re || cs>ce)return;
 setTimeout(()=>{
 
-
     for(let i=0; i<row; i++){
         for(let j=0; j<col; j++){
             matrix[i][j].classList.remove('path');
@@ -67,7 +66,6 @@ setTimeout(()=>{
         let colselect = possiblecol[Math.floor(Math.random() * possiblecol.length)];
         
         for(let i=rs-1; i<=re+1; i++){
-            console.log(rowselect);
             const cell=matrix[i][colselect];
             if(i!=rowselect && !cell.classList.contains('target') && !cell.classList.contains('source')){cell.classList.add('wall');}
         }
@@ -78,5 +76,6 @@ setTimeout(()=>{
     }
 
 },1)
+
 };
 export default mazeGeneration;
