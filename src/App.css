@@ -13,12 +13,11 @@
   }
 
   75% {
-      transform: scale(1);
       background-color: rgba(0, 217, 159, 0.75);
   }
 
   100% {
-      transform: scale(1);
+      transform: scale(1.05);
       background-color: var(--visited-clr);
   }
 }
@@ -38,12 +37,11 @@
   }
 
   75% {
-      transform: scale(1);
       background-color: rgba(0, 217, 206, 0.75);
   }
 
   100% {
-      transform: scale(1);
+      transform: scale(1.05);
       background-color: rgb(255, 200, 0);
   }
 }

@@ -9,10 +9,6 @@ import renderDFS from '../algorithms/DFS';
 function Navbar(props) {
     useEffect(() => {
 
-        let curpixel=40;
-        let curspeed=1;
-        let curAlgorithm=0;
-
         const visualizebtn=document.querySelector('.btn');
         const navOptions = document.querySelectorAll('.nav-menu > li > a');
         // navOptions is a object contains lots of <a>
@@ -85,13 +81,13 @@ function Navbar(props) {
                     // render the board here
                     {
                         if(!props.renderState.isrendering){
-                            curpixel=integerconverter(li.innerText); props.renderBoard(curpixel);
+                            props.Statemanagement.curpixel=integerconverter(li.innerText); props.renderBoard(props.Statemanagement.curpixel);
                         }
                     }
 
-                if(navOptionText==='Speed' && !props.renderState.isrendering)curspeed=integerconverter(li.innerText);
+                if(navOptionText==='Speed' && !props.renderState.isrendering)props.Statemanagement.curspeed=integerconverter(li.innerText);
 
-                if(navOptionText==='Algorithms' && !props.renderState.isrendering){curAlgorithm=integerconverter(li.innerText);
+                if(navOptionText==='Algorithms' && !props.renderState.isrendering){props.Statemanagement.curAlgorithm=integerconverter(li.innerText);
                     visualizebtn.innerText=li.innerText;
 
 
@@ -149,12 +145,12 @@ function addactiveclasstoActive(){
 
 
 
-        if(navOptionText==='Pixel' && val===curpixel){li.classList.add('active');}
+        if(navOptionText==='Pixel' && val===props.Statemanagement.curpixel){li.classList.add('active');}
 
-        if(navOptionText==='Speed' && val===curspeed){
+        if(navOptionText==='Speed' && val===props.Statemanagement.curspeed){
             li.classList.add('active');
         }
-        if(navOptionText==='Algorithms' && val===curAlgorithm){
+        if(navOptionText==='Algorithms' && val===props.Statemanagement.curAlgorithm){
             li.classList.add('active');
         }
     });

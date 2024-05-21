@@ -24,7 +24,10 @@ var Statemanagement={
   Matrix:null,
   sourcecoordinate:null,
   targetcoordinate:null,
-  delay:7
+  delay:7,
+ curpixel:40,
+curspeed:1,
+curAlgorithm:0
 }
 
 var renderState = { 
@@ -267,7 +270,7 @@ renderState.isrendered=false;
         const visualizeBtn=document.querySelector('.btn');
         visualizeBtn.innerText='Visualize';
         renderState.isrendering=true;
-        renderBoard();      
+        renderBoard(Statemanagement.curpixel);      
         renderState.isrendering=false;
         renderState.isrendered=false;
 // this is for making the algorithm dropoption consistency
