@@ -6,6 +6,7 @@ setTimeout(()=>{
         for(let j=0; j<col; j++){
             matrix[i][j].classList.remove('path');
             matrix[i][j].classList.remove('visited');
+            matrix[i][j].innerText='';
         }
     }
     if(!surrounding){

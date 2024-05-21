@@ -110,6 +110,7 @@ function renderDFS({ row, col, Matrix, sourcecoordinate, targetcoordinate, delay
       Matrix[i][j].classList.remove('visited');
       Matrix[i][j].classList.remove('renderedpath');
       Matrix[i][j].classList.remove('renderedvisited');
+      Matrix[i][j].innerText = '';
     }
   }
   DFS(row, col, Matrix, sourcecoordinate, targetcoordinate);

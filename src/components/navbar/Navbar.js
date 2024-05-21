@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react';
 import './Navbar.css';
+import renderBFS from '../algorithms/BFS';
+import renderDijkstra from '../algorithms/DijkstraAlgorithm';
+import renderConvergentGreedy from '../algorithms/ConvergentGreedy';
+import renderAStar from '../algorithms/Astar';
+import renderDFS from '../algorithms/DFS';
 
-function App(props) {
+function Navbar(props) {
     useEffect(() => {
 
-        let curpixel=22;
+        let curpixel=26;
         let curspeed=2;
         let curAlgorithm=0;
 
@@ -15,13 +20,35 @@ function App(props) {
             // adding event listener to <a>
             navOption.addEventListener('click', () => {
                 const li=navOption.parentElement;
-                if(li.classList.contains('active')){
-                    li.classList.remove('active');
+                
+
+                if(navOption.innerText==='Clear Path' || navOption.innerText==='Clear Board'||navOption.innerText==='Generate Maze'){
+                    togglenavOptions(); 
+
                 }
                 else{
-                    togglenavOptions(); 
-                    li.classList.add('active');
+
+                    if(li.classList.contains('active')){
+                        li.classList.remove('active');
+                    }
+                    else{
+                        togglenavOptions(); 
+                        li.classList.add('active');
+                    }
+
+
                 }
+
+
+
+
+                // if(li.classList.contains('active')){
+                //     li.classList.remove('active');
+                // }
+                // else{
+                //     togglenavOptions(); 
+                //     li.classList.add('active');
+                // }
             });
 
         function togglenavOptions(){
@@ -65,6 +92,39 @@ function App(props) {
                 if(navOptionText==='Speed')curspeed=integerconverter(li.innerText);
                 if(navOptionText==='Algorithms'){curAlgorithm=integerconverter(li.innerText);
                     visualizebtn.innerText=li.innerText;
+
+
+                    if(props.renderState.isrendered){
+
+                        switch(visualizebtn.innerText){
+
+                            case `Dijkstra's algorithm`: 
+                            renderDijkstra({ 
+                              row:props.Statemanagement.row, col:props.Statemanagement.col, Matrix:props.Statemanagement.Matrix, sourcecoordinate:props.Statemanagement.sourcecoordinate, targetcoordinate:props.Statemanagement.targetcoordinate, delay:props.Statemanagement.delay, renderState:props.renderState
+                             });
+                        break;
+                        
+                             case 'Greedy Search':
+                             renderConvergentGreedy({ 
+                                row:props.Statemanagement.row, col:props.Statemanagement.col, Matrix:props.Statemanagement.Matrix, sourcecoordinate:props.Statemanagement.sourcecoordinate, targetcoordinate:props.Statemanagement.targetcoordinate, delay:props.Statemanagement.delay, renderState:props.renderState                            });
+                        break;
+                             case 'DFS':
+                             renderDFS({ 
+                                row:props.Statemanagement.row, col:props.Statemanagement.col, Matrix:props.Statemanagement.Matrix, sourcecoordinate:props.Statemanagement.sourcecoordinate, targetcoordinate:props.Statemanagement.targetcoordinate, delay:props.Statemanagement.delay, renderState:props.renderState                           });
+                        break;
+                             case 'BFS':
+                             renderBFS({ 
+                                row:props.Statemanagement.row, col:props.Statemanagement.col, Matrix:props.Statemanagement.Matrix, sourcecoordinate:props.Statemanagement.sourcecoordinate, targetcoordinate:props.Statemanagement.targetcoordinate, delay:props.Statemanagement.delay, renderState:props.renderState                          });
+                        break;
+                             case 'A* Algorithm':
+                             renderAStar({ 
+                                row:props.Statemanagement.row, col:props.Statemanagement.col, Matrix:props.Statemanagement.Matrix, sourcecoordinate:props.Statemanagement.sourcecoordinate, targetcoordinate:props.Statemanagement.targetcoordinate, delay:props.Statemanagement.delay, renderState:props.renderState                             });
+                        break;
+                          }
+
+                        
+                    }
+
                 }
 
                 li.parentElement.parentElement.classList.remove('active');
@@ -79,13 +139,17 @@ addactiveclasstoActive();
 function addactiveclasstoActive(){
     dropOptions.forEach(dropOption=>{
         const li=dropOption.parentElement;
+
         const val=integerconverter(li.innerText);
+
         const dropOption_pEpEpE=dropOption.parentElement.parentElement.parentElement;
+
         const navOptionText=dropOption_pEpEpE.firstChild.innerText;
 
 
 
         if(navOptionText==='Pixel' && val===curpixel){li.classList.add('active');}
+
         if(navOptionText==='Speed' && val===curspeed){
             li.classList.add('active');
         }
@@ -103,12 +167,13 @@ function addactiveclasstoActive(){
             if(liinnertext==='24px')return 24;
             if(liinnertext==='26px')return 26;
             if(liinnertext==='Fast')return 3;
-            if(liinnertext==='Medium')return 2;
+            if(liinnertext==='Normal')return 2;
             if(liinnertext==='Slow')return 1;
-            if(liinnertext==='BFS')return 1;
-            if(liinnertext===`Dijkstra's algorithm`)return 2;
-            if(liinnertext==='Greedy BFS')return 3;
-            if(liinnertext==='A* Algorithm')return 4;
+            if(liinnertext==='DFS')return 3;
+            if(liinnertext==='BFS')return 4;
+            if(liinnertext===`Dijkstra's algorithm`)return 1;
+            if(liinnertext==='Greedy BFS')return 2;
+            if(liinnertext==='A* Algorithm')return 5;
         }
 //////////////////////////////////////////////////
 
@@ -140,9 +205,9 @@ document.addEventListener('click', (e) => {
                     <li className='drop-box'>
                         <a href='#'>Pixel <span className='caret'></span></a>
                         <ul className='drop-menu'>
-                            <li><a href='#'>14px</a></li>
+                            {/* <li><a href='#'>14px</a></li>
                             <li><a href='#'>16px</a></li>
-                            <li><a href='#'>18px</a></li>
+                            <li><a href='#'>18px</a></li> */}
                             <li><a href='#'>20px</a></li>
                             <li><a href='#'>22px</a></li>
                             <li><a href='#'>24px</a></li>
@@ -160,10 +225,11 @@ document.addEventListener('click', (e) => {
                     <li className='drop-box'>
                         <a href='#'>Algorithms <span className='caret'></span></a>
                         <ul className='drop-menu'>
+                        <li><a href='#'>Dijkstra's algorithm</a></li>
+                        <li><a href='#'>Greedy Search</a></li>
+                        <li><a href='#'>DFS</a></li>
                             <li><a href='#'>BFS</a></li>
-                            <li><a href='#'>Dijkstra's algorithm</a></li>
-                            <li><a href='#'>Greedy BFS</a></li>
-                            <li><a href='#'>A* Algorithm</a></li>
+                            {/* <li><a href='#'>A* Algorithm</a></li> */}
                         </ul>
                     </li>
                 </ul>
@@ -174,4 +240,4 @@ document.addEventListener('click', (e) => {
     );
 }
 
-export default App;
+export default Navbar;

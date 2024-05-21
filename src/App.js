@@ -16,11 +16,22 @@ var Matrix;
 var sourcecoordinate;
 var targetcoordinate;
 var delay = 7;
+
+var Statemanagement={
+  row:null,
+  col:null,
+  cells:null,
+  Matrix:null,
+  sourcecoordinate:null,
+  targetcoordinate:null,
+  delay:7
+}
+
 var renderState = { 
   isrendered: false, 
   isrendering:false
  };
-function renderBoard(cellwidth = 22) {
+function renderBoard(cellwidth = 26) {
   renderState.isrendered=false;
   const board = document.getElementById('board');
   board.innerHTML = "";
@@ -77,20 +88,22 @@ function renderBoard(cellwidth = 22) {
     
     // dragging the source and the destination
     const pointerdown = (e) => {
-      if(e.button===2){
-        rightclick=true;
-      }
-      if (e.target.classList.contains('source')) {
-        isDragging = true;
-        Dragpoint = 'source';
-      } else if (e.target.classList.contains('target')) {
-        isDragging = true;
-        Dragpoint = 'target';
-      } else {
-        isDrawing = true;
-        if (e.target.classList.contains('wall')) e.target.classList.remove('wall');
-        else {
-          e.target.classList.add('wall');
+      if(!renderState.isrendering){
+        if(e.button===2){
+          rightclick=true;
+        }
+        if (e.target.classList.contains('source')) {
+          isDragging = true;
+          Dragpoint = 'source';
+        } else if (e.target.classList.contains('target')) {
+          isDragging = true;
+          Dragpoint = 'target';
+        } else {
+          isDrawing = true;
+          if (e.target.classList.contains('wall')) e.target.classList.remove('wall');
+          else {
+            e.target.classList.add('wall');
+          }
         }
       }
     }
@@ -142,8 +155,53 @@ function renderBoard(cellwidth = 22) {
         sourcecoordinate={...prevSource};
         targetcoordinate={...prevtarget};
       }
-      if (renderState.isrendered === true && (e.target.classList.contains('source') || e.target.classList.contains('target'))) {
-        renderDFS({ row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState });
+      if (renderState.isrendered === true 
+        // && (e.target.classList.contains('source') || e.target.classList.contains('target'))
+      ) {
+
+
+      const vbtext=document.querySelector('.btn').innerText;
+
+      if(vbtext!=`Dijkstra's algorithm`){
+        for(let i=0; i<row; i++){
+          for(let j=0; j<col; j++){
+            Matrix[i][j].innerText='';
+          }
+        }
+      }
+
+      switch(vbtext){
+
+        case `Dijkstra's algorithm`: 
+        renderDijkstra({ 
+          row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState
+         });
+    break;
+    
+         case 'Greedy Search':
+         renderConvergentGreedy({ 
+           row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState
+          });
+    break;
+         case 'DFS':
+         renderDFS({ 
+           row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState
+          });
+    break;
+         case 'BFS':
+         renderBFS({ 
+           row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState
+          });
+    break;
+         case 'A* Algorithm':
+         renderAStar({ 
+           row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState
+          });
+    break;
+      }
+
+        
+
       }
       prevSource={...sourcecoordinate};
       prevtarget={...targetcoordinate};
@@ -158,6 +216,17 @@ function renderBoard(cellwidth = 22) {
     cell.addEventListener('pointermove', pointermove);
     cell.addEventListener('pointerup', pointerup);
   });
+
+
+
+  Statemanagement.row=row;
+  Statemanagement.col=col;
+  Statemanagement.cells=cells;
+  Statemanagement.Matrix=Matrix;
+  Statemanagement.sourcecoordinate=sourcecoordinate;
+  Statemanagement.targetcoordinate=targetcoordinate;
+  Statemanagement.delay=delay;
+
 };
 
 function restofthing() {
@@ -195,10 +264,27 @@ renderState.isrendered=false;
       if (Text === 'Clear Board') {
 
       if(!renderState.isrendering){
+        const visualizeBtn=document.querySelector('.btn');
+        visualizeBtn.innerText='Visualize';
         renderState.isrendering=true;
         renderBoard();      
         renderState.isrendering=false;
         renderState.isrendered=false;
+// this is for making the algorithm dropoption consistency
+        const dropOptions=document.querySelectorAll('.drop-menu>li>a');
+
+        dropOptions.forEach(dropOption=>{
+          const li=dropOption.parentElement;
+    
+          const dropOption_pEpEpE=dropOption.parentElement.parentElement.parentElement;
+          const navOptionText=dropOption_pEpEpE.firstChild.innerText;
+
+          if(navOptionText==='Algorithms'){
+              li.classList.remove('active');
+          }
+      });
+
+////////////////////////////////////////////////////////////////
       }
 
       }
@@ -264,13 +350,51 @@ visualizeBtn.addEventListener('click', () => {
 
 // if(clearboardDelaytoggle_isactive===true){
 if(!renderState.isrendering){
+  const vbtext=visualizeBtn.innerText;
+  switch(vbtext){
+    case 'Visualize':visualizeBtn.innerText='Select an Algorithm to Visualize';
+break;
 
-  renderState.isrendered=false;
-  renderState.isrendering=true;
-  console.log(renderState.isrendered);
-  renderDFS({ 
-    row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState
-   });
+    case `Dijkstra's algorithm`: renderState.isrendered=false;
+    renderState.isrendering=true;
+  
+    renderDijkstra({ 
+      row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState
+     });
+break;
+
+     case 'Greedy Search':renderState.isrendered=false;
+     renderState.isrendering=true;
+   
+     renderConvergentGreedy({ 
+       row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState
+      });
+break;
+     case 'DFS':renderState.isrendered=false;
+     renderState.isrendering=true;
+   
+     renderDFS({ 
+       row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState
+      });
+break;
+     case 'BFS':renderState.isrendered=false;
+     renderState.isrendering=true;
+   
+     renderBFS({ 
+       row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState
+      });
+break;
+     case 'A* Algorithm':renderState.isrendered=false;
+     renderState.isrendering=true;
+   
+     renderAStar({ 
+       row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState
+      });
+break;
+  }
+
+  
+
 
   console.log(renderState.isrendered);
 
@@ -295,7 +419,7 @@ function App() {
   return (
     <div className="template">
       <div>
-        <Navbar renderBoard={renderBoard} renderState={renderState} />
+        <Navbar renderBoard={renderBoard} renderState={renderState} Statemanagement={Statemanagement} />
         <Guidebar />
       </div>
       <Gridbox renderBoard={renderBoard} />

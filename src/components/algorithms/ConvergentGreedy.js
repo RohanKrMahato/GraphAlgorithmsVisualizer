@@ -207,6 +207,8 @@ function renderConvergentGreedy({ row, col, Matrix, sourcecoordinate, targetcoor
       Matrix[i][j].classList.remove('visited');
       Matrix[i][j].classList.remove('renderedpath');
       Matrix[i][j].classList.remove('renderedvisited');
+      Matrix[i][j].innerText = '';
+
     }
   }
   ConvergentGreedy(row, col, Matrix, sourcecoordinate, targetcoordinate);
