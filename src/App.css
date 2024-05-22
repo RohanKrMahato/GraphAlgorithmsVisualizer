@@ -84,7 +84,7 @@
   cursor: pointer;
   /* background-color: brown; */
 }
-.path{
+.path,.col.source.path,.col.target.path{
   animation:pathradiate 1s ease-out forwards;
   background-color: rgb(255, 200, 0);
   }

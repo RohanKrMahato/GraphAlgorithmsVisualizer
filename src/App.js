@@ -87,6 +87,10 @@ function renderBoard(cellwidth = 40) {
   let prevSource={...sourcecoordinate};
   let prevtarget={...targetcoordinate};
 
+// to make sure while draggin there is not multiple renders
+
+  let prevhoveringcoordinate={x:-1,y:-1};
+
   cells.forEach(cell => {
     
     // dragging the source and the destination
@@ -110,7 +114,7 @@ function renderBoard(cellwidth = 40) {
         }
       }
     }
-    // i want that when i right click and move, wall will erase, chat gpt please help me
+    
     const pointermove = (e) => {
       if (isDrawing) {
 
@@ -124,19 +128,73 @@ function renderBoard(cellwidth = 40) {
         }
 
       } else if (isDragging) {
+
+
+
         cells.forEach(cell => {
           cell.classList.remove(`${Dragpoint}`);
         });
 
         e.target.classList.add(`${Dragpoint}`);
 
-        if (Dragpoint === 'source') {
+        if (Dragpoint === 'source' 
+        // && !e.target.classList.contains('wall')
+      ) {
           sourcecoordinate.x = +e.target.id.split('-')[0];
           sourcecoordinate.y = +e.target.id.split('-')[1];
-        } else {
+        } else if(Dragpoint === 'target' 
+        // && !e.target.classList.contains('wall')
+      ){
           targetcoordinate.x = +e.target.id.split('-')[0];
           targetcoordinate.y = +e.target.id.split('-')[1];
         }
+
+let currhoveringcoordinate={x:+e.target.id.split('-')[0],y:+e.target.id.split('-')[1]};
+
+        if(!(prevhoveringcoordinate.x===currhoveringcoordinate.x && prevhoveringcoordinate.y===currhoveringcoordinate.y)){
+
+          const vbtext=document.querySelector('.btn').innerText;
+console.log(vbtext);
+          if(vbtext!=`Dijkstra's algorithm`){
+            for(let i=0; i<row; i++){
+              for(let j=0; j<col; j++){
+                Matrix[i][j].innerText='';
+              }
+            }
+          }
+    
+          switch(vbtext){
+    
+            case `Dijkstra's algorithm`: 
+            renderDijkstra({ 
+              row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState
+             });
+        break;
+        
+             case 'Greedy Search':
+             renderConvergentGreedy({ 
+               row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState
+              });
+        break;
+             case 'DFS':
+             renderDFS({ 
+               row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState
+              });
+        break;
+             case 'BFS':
+             renderBFS({ 
+               row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState
+              });
+        break;
+             case 'A* Algorithm':
+             renderAStar({ 
+               row, col, Matrix, sourcecoordinate, targetcoordinate, delay, renderState
+              });
+        break;
+          }
+        }
+        prevhoveringcoordinate={...currhoveringcoordinate}
+
       }
     }
     const pointerup = (e) => {
