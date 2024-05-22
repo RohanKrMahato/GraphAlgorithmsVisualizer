@@ -143,15 +143,13 @@ function animate(elements, className, delay,renderState,matrix,row,col) {
     
     if(renderState.isrendered===true){
 
-        let targetpresent=false;
 
         for (let i = 0; i < elements.length; i++) {
 
-          if(elements[i].classList.contains('target'))targetpresent=true;
            
               elements[i].classList.add('renderedvisited');
 
-              if (i === elements.length - 1 && targetpresent) {
+              if (i === elements.length - 1) {
 
                 for (let j = pathtoanimate.length - 1; j >= 0; j--) {
                     pathtoanimate[j].classList.remove('renderedvisited');

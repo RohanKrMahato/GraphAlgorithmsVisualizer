@@ -143,3 +143,29 @@
   background-size: contain;
   animation: radiatesourcetarget 1s ease infinite;
 }
+
+
+.swal-overlay {
+  background-color: rgba(129, 125, 121, 0.186);
+  backdrop-filter: blur(3px);
+}
+
+.swal-modal {
+  border: 5px solid #ff3d3da1;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.635);
+  border-radius: 20px;
+}
+
+.swal-text {
+  color: #534641;
+  font-size: 18px;
+  user-select: none;
+}
+
+.swal-button {
+  padding: 7px 19px;
+  border-radius: 2px;
+  background-color: #ff3d3da1;
+  font-size: 12px;
+  border: none;
+}

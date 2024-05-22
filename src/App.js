@@ -9,6 +9,8 @@ import renderDijkstra from './components/algorithms/DijkstraAlgorithm';
 import renderConvergentGreedy from './components/algorithms/ConvergentGreedy';
 import renderAStar from './components/algorithms/Astar';
 import renderDFS from './components/algorithms/DFS';
+import swal from 'sweetalert';
+
 var row;
 var col;
 var cells;
@@ -201,7 +203,7 @@ console.log(vbtext);
 
       if(((e.target.classList.contains('target')||e.target.classList.contains('source')) && e.target.classList.contains('wall'))||(e.target.classList.contains('target')&&e.target.classList.contains('source'))){
         
-        alert("(1).Target/Source can't be placed on wall\n(2).Source and Target can't be placed on the same cell");
+        swal("","(1).Target/Source can't be placed on wall\n(2).Source and Target can't be placed on the same cell","warning");
 ////////////////
         Matrix[sourcecoordinate.x][sourcecoordinate.y].classList.remove('source');
         Matrix[targetcoordinate.x][targetcoordinate.y].classList.remove('target');
@@ -266,6 +268,8 @@ console.log(vbtext);
       }
       prevSource={...sourcecoordinate};
       prevtarget={...targetcoordinate};
+      Statemanagement.sourcecoordinate=sourcecoordinate;
+      Statemanagement.targetcoordinate=targetcoordinate;
 
       isDragging = false;
       isDrawing = false;
