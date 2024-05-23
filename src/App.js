@@ -153,7 +153,7 @@ function renderBoard(cellwidth = 40) {
 
 let currhoveringcoordinate={x:+e.target.id.split('-')[0],y:+e.target.id.split('-')[1]};
 
-        if(!(prevhoveringcoordinate.x===currhoveringcoordinate.x && prevhoveringcoordinate.y===currhoveringcoordinate.y)){
+        if(!(prevhoveringcoordinate.x===currhoveringcoordinate.x && prevhoveringcoordinate.y===currhoveringcoordinate.y) && renderState.isrendered){
 
           const vbtext=document.querySelector('.btn').innerText;
 console.log(vbtext);
@@ -306,7 +306,7 @@ function restofthing() {
 
 
 
-      if (Text === 'Clear Path') {
+    if (Text === 'Clear Path') {
 
 if(!renderState.isrendering){
 
@@ -317,13 +317,12 @@ renderState.isrendering=true;
       Matrix[i][j].classList.remove('visited');
       Matrix[i][j].classList.remove('renderedpath');
       Matrix[i][j].classList.remove('renderedvisited');
+      Matrix[i][j].innerText='';
     }
   }
 renderState.isrendering=false;
 renderState.isrendered=false;
-
 }
-
 
       }
       if (Text === 'Clear Board') {
@@ -375,7 +374,7 @@ renderState.isrendered=false;
 
         generateMaze(false, 0, row - 1, 0, col - 1, Matrix, row, col, (row < col) ? 'vertical' : 'horizontal');
   
-        renderState.isrendered=false;
+        // renderState.isrendered=false;
 
         console.log("appjs ka function");
           
